@@ -45,7 +45,7 @@ class ProxyController extends BaseController {
 
 	public function getProxy( Request $req ) {
 
-		$proxy = Proxy::query()->orderBy('speed', 'asc')->take(20)->get()->shuffle()->first();
+		$proxy = Proxy::query()->orderBy('speed', 'asc')->take(40)->get()->shuffle()->first();
 
 		return $proxy;
 	}
