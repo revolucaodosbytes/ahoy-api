@@ -57,6 +57,7 @@ class FetchProxy extends Command
 				continue;
 			}
 
+
 			$this->info( "\nFetched page $page... Parsing HTML" );
 
 
@@ -75,7 +76,13 @@ class FetchProxy extends Command
 				if( strpos( $entry->textContent, ":" ) === false )
 					continue;
 
-				// todo, check for proxy existence
+				list( $host, $port ) = explode( ":", $entry->textContent );
+
+
+				if ( ! Proxy::whereRaw( 'host = ? and port = ?', array( $host, $port ) )->get()->isEmpty() ) {
+					$this->info(" Skipping " . $entry->textContent . "... Already on the database");
+				}
+
 
 				$this->info( "==== FOUND " . $entry->textContent . " ====\nStart testing..." );
 
@@ -90,8 +97,6 @@ class FetchProxy extends Command
 				$this->table( [  "Type", "Type Name", "Query Time", "SSL" ], [
 					[ $resultQuery['TYPE'], $resultQuery['TYPE_NAME'], $resultQuery['QUERY_TIME'], $resultQuery['SUPPORT_SSL'] ]
 				 ] );
-
-				list( $host, $port ) = explode( ":", $entry->textContent );
 
 				$proxy = new Proxy();
 				$proxy->host = $host;
