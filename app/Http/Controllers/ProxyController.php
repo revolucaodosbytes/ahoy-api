@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Proxy;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use GuzzleHttp;
@@ -68,65 +69,15 @@ class ProxyController extends BaseController {
 		curl_multi_close ($mc);
 	}
 
-	protected function checkProxy( $proxy ) {
-
-		list( $ip, $port ) = explode( ":", $proxy );
-
-		// Get current time to check proxy speed
-		$loadingtime = time();
-
-		$ch = curl_init('http://api.proxyipchecker.com/pchk.php');
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS,'ip='.$ip.'&port='.$port);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-		curl_setopt($ch, CURLOPT_HEADER, 0);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-		$result = explode( ";", curl_exec( $ch ) );
-
-		if ( $result[3] == 0 )
-			return false;
-
-		return $result;
-
-		/*$theHeader = curl_init($url);
-		curl_setopt($theHeader, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($theHeader, CURLOPT_TIMEOUT, 20);
-		curl_setopt($theHeader, CURLOPT_PROXY, $proxy);
-
-		//Execute the request
-		$curlResponse = curl_exec($theHeader);
-
-		if ($curlResponse === false)
-		{
-			return false;
-		}
-		else
-		{
-			return [
-				'speed' => time() - $loadingtime,
-				'response' => $curlResponse,
-			];
-		}// end if */
-
-	}
-
 	public function getProxyList( Request $req ) {
-		return $this->proxy_list;
+		return Proxy::all();
 	}
 
 	public function getProxy( Request $req ) {
-		shuffle( $this->proxy_list );
-		foreach( $this->proxy_list as $proxy ) {
-			$check = $this->checkProxy( $proxy );
-			if( $check[3] == 0 ) {
-				continue;
-			}
 
-			return [ $proxy ];
-		}
+		$proxy = Proxy::query()->orderBy('speed', 'asc')->take(10)->get()->shuffle()->first()g;
 
-		return [ 'error' => 'no proxy found' ];
+		return $proxy;
 	}
 
 }
