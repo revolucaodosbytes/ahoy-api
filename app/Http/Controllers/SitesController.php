@@ -14,7 +14,6 @@ class SitesController extends BaseController {
 		"thepiratebay.org",
 		"thepiratebay.se",
 		"piratebay.se",
-		"omeuip.com",
 		"1337x.to",
 		"btrev.net",
 		"clubedodownload.info",
