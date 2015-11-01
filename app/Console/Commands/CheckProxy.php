@@ -39,6 +39,10 @@ class CheckProxy extends Command
 	 */
 	public function fire()
 	{
+		define('HTTP_GATE','http://grupoaweso.me/gate.php'); // Gate for check HTTP,SOCKS proxy
+		define('HTTPS_GATE','https://grupoaweso.me/gate.php'); // Gate for check HTTPS proxy
+		define('CHECK_TIMEOUT',10); // Curl timeout request
+
 		$proxies = Proxy::all();
 		$this->info( "Checking existing proxies...\n" );
 		foreach( $proxies as $proxy ) {
