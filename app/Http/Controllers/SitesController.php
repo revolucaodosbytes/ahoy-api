@@ -65,6 +65,7 @@ class SitesController extends BaseController {
 		"thepiratebay.la",
 		"yts.to",
 		"toppt.tv",
+		"uber.com",
 	];
 
 
