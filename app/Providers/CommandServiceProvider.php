@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Console\Commands\CheckProxy;
 use App\Console\Commands\FetchProxy;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,8 +20,14 @@ class CommandServiceProvider extends ServiceProvider
             return new FetchProxy();
         });
 
+        $this->app->singleton('command.proxy.check', function()
+        {
+            return new CheckProxy();
+        });
+
         $this->commands(
-            'command.proxy.fetch'
+            'command.proxy.fetch',
+            'command.proxy.check'
         );
     }
 }
