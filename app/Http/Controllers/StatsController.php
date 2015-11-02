@@ -17,6 +17,8 @@ class StatsController extends BaseController {
 		return DB::table('stats_hosts')->insertGetId(
 			[
 				'hostname' => $hostname,
+				'created_at' => DB::raw('NOW()'),
+				'updated_at' => DB::raw('NOW()'),
 			]
 		);
 	}
