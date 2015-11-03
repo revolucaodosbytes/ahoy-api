@@ -10,7 +10,6 @@ class SitesController extends BaseController {
 
 	// @todo grab from the database
 	private $sites_list = [
-		"omeuip.com",
 		"piratebay.org",
 		"thepiratebay.org",
 		"thepiratebay.se",
