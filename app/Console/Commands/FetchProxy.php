@@ -25,12 +25,6 @@ class FetchProxy extends Command
 	 */
 	protected $description = 'Fetch newer proxies';
 
-	/**
-	 * The drip e-mail service.
-	 *
-	 * @var DripEmailer
-	 */
-	protected $drip;
 
 	/**
 	 * Execute the console command.
@@ -41,8 +35,8 @@ class FetchProxy extends Command
 	{
 		$proxy_list_url = "http://proxy-list.org/english/index.php?p=";
 
-		define('HTTP_GATE','http://grupoaweso.me/gate.php'); // Gate for check HTTP,SOCKS proxy
-		define('HTTPS_GATE','https://grupoaweso.me/gate.php'); // Gate for check HTTPS proxy
+		define('HTTP_GATE','http://revolucaodosbytes.pt/gate.php'); // Gate for check HTTP,SOCKS proxy
+		define('HTTPS_GATE','https://revolucaodosbytes.pt/gate.php'); // Gate for check HTTPS proxy
 		define('CHECK_TIMEOUT',10); // Curl timeout request
 
 		for( $page = 1; $page <= 10; $page++ ) {

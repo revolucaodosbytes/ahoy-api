@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\Artisan;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -25,6 +26,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 	    $schedule->command('proxy:check')->everyThirtyMinutes();
-	    $schedule->command('proxy:fetch')->daily();
+	    $schedule->command('proxy:fetch')->daily()->after( function() {
+            Artisan::call('proxy:security');
+        });
     }
 }

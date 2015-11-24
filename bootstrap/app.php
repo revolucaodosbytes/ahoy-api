@@ -79,6 +79,7 @@ $app->singleton(
 */
 
 $app->register(App\Providers\CommandServiceProvider::class);
+$app->register(Vluzrmos\Tinker\TinkerServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*

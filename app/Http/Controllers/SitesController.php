@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use GuzzleHttp;
 
@@ -10,6 +11,7 @@ class SitesController extends BaseController {
 
 	// @todo grab from the database
 	private $sites_list = [
+		//Piratebay links
 		"piratebay.org",
 		"thepiratebay.org",
 		"thepiratebay.se",
@@ -107,6 +109,13 @@ class SitesController extends BaseController {
 
 
 	public function getSiteList( Request $req ) {
+
+		// Include the IP checking site if not running in production
+		if ( App::environment( "local" ) ) {
+			$this->sites_list[] = "omeuip.com";
+		}
+
+
 		return $this->sites_list;
 	}
 
