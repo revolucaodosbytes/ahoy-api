@@ -35,8 +35,10 @@ class FunCommand extends Command
 		// the user/chat id who triggered this command.
 		// `replyWith<Message|Photo|Audio|Video|Voice|Document|Sticker|Location|ChatAction>()` all the available methods are dynamically
 		// handled when you replace `send<Method>` with `replyWith` and use all their parameters except chat_id.
-		$user = $this->getUpdate()->get('from')->getFirstName();
-		$this->replyWithMessage('Ahoy, ' . $user);
+		$this->replyWithMessage("Ahoy! Estás com sorte, sou um gajo cheio de sentido de humor! Deixa cá pensar numa boa...");
+		sleep(2);
+		$this->replyWithMessage("Ah lembrei-me duma muito boa! Eheheh! Cá vai:");
+		$this->replyWithMessage( $this->piadas[ array_rand( $this->piadas ) ]);
 
 	}
 }
