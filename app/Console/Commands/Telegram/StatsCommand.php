@@ -62,7 +62,22 @@ class StatsCommand extends Command
 		$num_ultima_hora = DB::table('stats_hosts')->where('created_at', '>', \Carbon\Carbon::now()->subHours(1))->count();
 		$num_ultimo_minuto = DB::table('stats_hosts')->where('created_at', '>', \Carbon\Carbon::now()->subMinutes(1))->count();
 
-		$this->replyWithMessage($num_ultima_hora . " pessoas utilizaram o Ahoy! na última hora, e $num_ultimo_minuto pessoas utilizaram no último minuto.");
+		$this->replyWithMessage($num_ultima_hora . " páginas acedidas na última hora, e $num_ultimo_minuto no último minuto.");
+
+		//URL of your extension
+		$url = "https://chrome.google.com/webstore/detail/ahoy/ljighgeflmhnpljodhpcifcojkpancpm";
+
+		$file_string = file_get_contents($url);
+
+		//Get the rating
+		preg_match('/ratingValue" content="(\d*\d+\.\d+)/', $file_string, $ratings);
+		$rating = $ratings[1];
+
+		//Get the nb of users
+		preg_match('/class="e-f-ih" title="(\d*\,\d+)/', $file_string, $users);
+		$users = $users[1];
+
+		$this->replyWithMessage("Existem $users utilizadores com um rating médio de $rating");
 
 		// Trigger another command dynamically from within this command
 		// When you want to chain multiple commands within one or process the request further.
