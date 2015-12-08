@@ -81,7 +81,7 @@ class CheckProxySecurity extends Command
 			curl_setopt( $curl_proxy, CURLOPT_URL, $url );
 			curl_setopt( $curl_proxy, CURLOPT_RETURNTRANSFER, 1 );
 			curl_setopt( $curl_proxy, CURLOPT_CONNECTTIMEOUT, $timeout );
-			curl_setopt( $curl_proxy, CHECK_TIMEOUT, $timeout );
+			curl_setopt( $curl_proxy, CURLOPT_TIMEOUT, $timeout );
 
 
 			//proxy details
