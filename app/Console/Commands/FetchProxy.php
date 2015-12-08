@@ -128,6 +128,8 @@ class FetchProxy extends Command
 		$this->info("#############################################");
 		$this->info("There are " . sizeof($proxy_array) . " proxy entries to test.\n");
 
+		$counter = 0;
+
 		foreach( $proxy_array as $proxy ) {
 			list( $host, $port ) = $proxy;
 
@@ -146,6 +148,11 @@ class FetchProxy extends Command
 				continue;
 			}
 
+			if( isset( $resultQuery['SUPPORT_SSL'] ) && $resultQuery['SUPPORT_SSL'] != 'Y' ) {
+				$this->error("\t * Proxy does not support SSL. Skipping.");
+				continue;
+			}
+
 			$this->info("\t * Success! ");
 			$this->table( [  "Type", "Type Name", "Query Time", "SSL" ], [
 					[ $resultQuery['TYPE'], $resultQuery['TYPE_NAME'], $resultQuery['QUERY_TIME'], $resultQuery['SUPPORT_SSL'] ]
@@ -159,7 +166,8 @@ class FetchProxy extends Command
 			$proxy->latest_report = json_encode( $resultQuery );
 
 			$proxy->save();
+			$counter++;
 		}
-		$this->info(" All done!! ");
+		$this->info("\n * All done! Added $counter new proxies");
 	}
 }
