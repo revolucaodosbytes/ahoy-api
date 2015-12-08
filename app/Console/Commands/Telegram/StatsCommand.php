@@ -59,10 +59,10 @@ class StatsCommand extends Command
 
 		$this->replyWithMessage("Existem " . $num_proxies . " proxies e " . $num_sites . " sites bloqueados.");
 
-		$num_ultima_hora = DB::table('stats_hosts')->where('created_at', '>', \Carbon\Carbon::now()->subHours(1));
-		$num_ultimo_minuto = DB::table('stats_hosts')->where('created_at', '>', \Carbon\Carbon::now()->subMinutes(1));
+		$num_ultima_hora = DB::table('stats_hosts')->where('created_at', '>', \Carbon\Carbon::now()->subHours(1))->count();
+		$num_ultimo_minuto = DB::table('stats_hosts')->where('created_at', '>', \Carbon\Carbon::now()->subMinutes(1))->count();
 
-		//$this->replyWithMessage($num_ultima_hora . " pessoas utilizaram o Ahoy! na última hora, e $num_ultimo_minuto pessoas utilizaram no último minuto.");
+		$this->replyWithMessage($num_ultima_hora . " pessoas utilizaram o Ahoy! na última hora, e $num_ultimo_minuto pessoas utilizaram no último minuto.");
 
 		// Trigger another command dynamically from within this command
 		// When you want to chain multiple commands within one or process the request further.
