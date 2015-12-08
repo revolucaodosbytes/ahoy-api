@@ -10,7 +10,7 @@ use GuzzleHttp;
 class SitesController extends BaseController {
 
 	// @todo grab from the database
-	private $sites_list = [
+	public static $sites_list = [
 		//Piratebay links
 		"piratebay.org",
 		"thepiratebay.org",
@@ -113,11 +113,11 @@ class SitesController extends BaseController {
 
 		// Include the IP checking site if not running in production
 		if ( App::environment( "local" ) ) {
-			$this->sites_list[] = "omeuip.com";
+			self::$sites_list[] = "omeuip.com";
 		}
 
 
-		return $this->sites_list;
+		return self::$sites_list;
 	}
 
 

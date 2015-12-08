@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands\Telegram;
 
+use App\Http\Controllers\SitesController;
+use App\Proxy;
 use Illuminate\Support\Facades\DB;
 use Telegram\Bot\Actions;
 use Telegram\Bot\Commands\Command;
@@ -48,14 +50,19 @@ class StatsCommand extends Command
 			$uptime_msg .= $days . " dias e ";
 		}
 
-		$uptime_msg .= $hours . " horas";
+		$uptime_msg .= $hours . " horas.";
 
 		$this->replyWithMessage($uptime_msg);
 
-		// This will update the chat status to typing...
-		$this->replyWithChatAction(Actions::TYPING);
+		$num_proxies = count(Proxy::all());
+		$num_sites = count(SitesController::$sites_list);
 
-		$top = DB::select('select hostname,count(hostname) as hits from stats_hosts group by hostname order by count(hostname) DESC LIMIT 0,10');
+		$this->replyWithMessage("Existem " . $num_proxies . " proxies e " . $num_sites . " sites bloqueados.");
+
+		$num_ultima_hora = DB::table('stats_hosts')->where('created_at', '>', \Carbon\Carbon::now()->subHours(1));
+		$num_ultimo_minuto = DB::table('stats_hosts')->where('created_at', '>', \Carbon\Carbon::now()->subMinutes(1));
+
+		$this->replyWithMessage($num_ultima_hora . " pessoas utilizaram o Ahoy! na última hora, e $num_ultima_hora pessoas utilizaram no último minuto.");
 
 		// Trigger another command dynamically from within this command
 		// When you want to chain multiple commands within one or process the request further.
