@@ -1,6 +1,8 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+use Telegram\Bot\Laravel\Facades\Telegram;
+
+require_once __DIR__ . '/../vendor/autoload.php';
 
 Dotenv::load(__DIR__.'/../');
 
@@ -98,8 +100,11 @@ $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
     require __DIR__.'/../app/Http/routes.php';
 });
 
-\Telegram\Bot\Laravel\Facades\Telegram::addCommands([
-    \App\Console\Commands\Telegram\StartCommand::class
+Telegram::addCommands([
+    \App\Console\Commands\Telegram\StartCommand::class,
+    \App\Console\Commands\Telegram\TopCommand::class,
 ]);
+
+Telegram::setWebhook('https://ahoy-api.revolucaodosbytes.pt/'.env('TELEGRAM_BOT_TOKEN').'/webhook');
 
 return $app;
