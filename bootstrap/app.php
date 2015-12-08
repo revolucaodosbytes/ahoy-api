@@ -82,7 +82,7 @@ $app->singleton(
 
 $app->register(App\Providers\CommandServiceProvider::class);
 $app->register(Vluzrmos\Tinker\TinkerServiceProvider::class);
-$app->register(Telegram\Bot\Laravel\TelegramServiceProvider::class);
+$app->register(\Telegram\Bot\Laravel\TelegramServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*
@@ -101,8 +101,7 @@ $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
 });
 
 Telegram::addCommands([
-    \App\Console\Commands\Telegram\StartCommand::class,
-    \App\Console\Commands\Telegram\TopCommand::class,
+    \App\Console\Commands\Telegram\StartCommand::class
 ]);
 
 Telegram::setWebhook('https://ahoy-api.revolucaodosbytes.pt/'.env('TELEGRAM_BOT_TOKEN').'/webhook');
