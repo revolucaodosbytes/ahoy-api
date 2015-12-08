@@ -101,7 +101,8 @@ $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
 });
 
 Telegram::addCommands([
-    \App\Console\Commands\Telegram\StartCommand::class
+    \App\Console\Commands\Telegram\StartCommand::class,
+    \App\Console\Commands\Telegram\TopCommand::class,
 ]);
 
 Telegram::setWebhook('https://ahoy-api.revolucaodosbytes.pt/'.env('TELEGRAM_BOT_TOKEN').'/webhook');
