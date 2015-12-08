@@ -6,6 +6,7 @@ use App\Libs\PHPProxyChecker;
 use App\Proxy;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class FetchProxy extends Command
 {
@@ -126,7 +127,9 @@ class FetchProxy extends Command
 		$this->info("\n#############################################");
 		$this->info("####       STARTED TESTING PROXIES       ####");
 		$this->info("#############################################");
-		$this->info("There are " . sizeof($proxy_array) . " proxy entries to test.\n");
+		$this->info("There are " . count($proxy_array) . " proxy entries to test.\n");
+		Telegram::sendMessage(env("TELEGRAM_CHANNEL"),
+				"Procura de novos proxies iniciada. Vou iniciar o teste de " . count($proxy_array) . " proxies.");
 
 		$counter = 0;
 
@@ -169,5 +172,8 @@ class FetchProxy extends Command
 			$counter++;
 		}
 		$this->info("\n * All done! Added $counter new proxies");
+		//Notify on telegram
+		Telegram::sendMessage(env("TELEGRAM_CHANNEL"),
+				"Terminei agora de ir buscar novos proxies. De um total de " . count($proxy_array) . " proxies, aproveitei apenas $counter.");
 	}
 }

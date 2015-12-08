@@ -80,6 +80,7 @@ $app->singleton(
 
 $app->register(App\Providers\CommandServiceProvider::class);
 $app->register(Vluzrmos\Tinker\TinkerServiceProvider::class);
+$app->register(Telegram\Bot\Laravel\TelegramServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*

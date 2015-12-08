@@ -6,6 +6,7 @@ use App\Libs\PHPProxyChecker;
 use App\Proxy;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class CheckProxy extends Command
 {
@@ -67,5 +68,6 @@ class CheckProxy extends Command
 
 			$this->info("Done. \n");
 		}
+
 	}
 }
