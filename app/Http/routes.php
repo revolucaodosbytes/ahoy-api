@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,6 +10,9 @@
 |
 */
 
+use \Telegram\Bot\Laravel\Facades\Telegram;
+
+
 $app->get('/', function () use ($app) {
     return [
         'version' => 1
@@ -21,3 +23,9 @@ $app->get( 'api/proxies', 'ProxyController@getProxyList' );
 $app->get( 'api/sites', 'SitesController@getSiteList' );
 $app->get( 'api/getProxy', 'ProxyController@getProxy' );
 $app->get( 'api/stats/host/{hostname}', 'StatsController@hostname');
+
+$app->post('/'.env("TELEGRAM_BOT_TOKEN").'/webhook', function () {
+    Telegram::commandsHandler(true);
+
+    return 'ok';
+});

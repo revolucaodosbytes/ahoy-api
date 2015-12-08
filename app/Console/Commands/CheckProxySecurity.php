@@ -7,6 +7,7 @@ use App\Libs\PHPProxyChecker;
 use App\Proxy;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class CheckProxySecurity extends Command
 {
@@ -43,6 +44,8 @@ class CheckProxySecurity extends Command
 
 		$proxies = Proxy::all();
 		$this->info( "Checking existing proxies...\n" );
+		Telegram::sendMessage(env("TELEGRAM_CHANNEL"),
+				"A iniciar os teste de segurança para " . count($proxies) . " proxies.");
 
 		foreach( $proxies as $proxy ) {
 			$this->info( "\n # Checking security on " . $proxy->host . ":" . $proxy->port . "..." );
@@ -51,6 +54,10 @@ class CheckProxySecurity extends Command
 			$this->checkProxySecurity( $proxy );
 
 		}
+
+		Telegram::sendMessage(env("TELEGRAM_CHANNEL"),
+				"Testes de segurança finalizados! De " . count($proxies) . " proxies, ficaram " . count( Proxy::all() ) . ".");
+
 		$this->info("Done.");
 	}
 
