@@ -80,7 +80,7 @@ $app->singleton(
 
 $app->register(App\Providers\CommandServiceProvider::class);
 $app->register(Vluzrmos\Tinker\TinkerServiceProvider::class);
-$app->register(Telegram\Bot\Laravel\TelegramServiceProvider::class);
+$app->register(\Telegram\Bot\Laravel\TelegramServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*
@@ -98,7 +98,8 @@ $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
     require __DIR__.'/../app/Http/routes.php';
 });
 
-\Telegram\Bot\Laravel\Facades\Telegram::addCommands([
+
+Telegram::addCommands([
     \App\Console\Commands\Telegram\StartCommand::class
 ]);
 
