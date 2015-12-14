@@ -105,14 +105,17 @@ class FetchProxy extends Command
 
 			$xpath = new \DOMXPath( $dom );
 
-			$entries = $xpath->query( '//*[@id="proxy-table"]//li[@class="proxy"]' );
+			$entries = $xpath->query( '//*[@id="proxy-table"]//li[@class="proxy"]//script' );
 
 			foreach ($entries as $entry) {
 
-				if( strpos( $entry->textContent, ":" ) === false )
+				preg_match('/\'(.*)\'/i', $entry->textContent, $proxy_address);
+				$proxy_address = base64_decode( $proxy_address[1] );
+
+				if( strpos( $proxy_address, ":" ) === false )
 					continue;
 
-				list( $host, $port ) = explode( ":", $entry->textContent );
+				list( $host, $port ) = explode( ":", $proxy_address );
 				$this->info( " * FOUND " . $host . ":" . $port );
 				$proxy_array[] = [ $host, $port ];
 
