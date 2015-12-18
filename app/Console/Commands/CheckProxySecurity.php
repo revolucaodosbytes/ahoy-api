@@ -68,7 +68,7 @@ class CheckProxySecurity extends Command
 		$timeout = 5;
 
 		$urls = [
-				"http://toppt.net/",
+				// "http://toppt.net/",
 				"http://www.revolucaodosbytes.pt/",
 			];
 
