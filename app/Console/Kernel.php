@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 	    $schedule->command('proxy:check')->twiceDaily();
-	    $schedule->command('proxy:fetch')->daily()->after( function() {
+	    $schedule->command('proxy:fetch')->twiceDaily()->after( function() {
             Artisan::call('proxy:security');
         });
     }
