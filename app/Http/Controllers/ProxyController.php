@@ -45,7 +45,7 @@ class ProxyController extends BaseController {
 
 	public function getProxy( Request $req ) {
 
-		if( /* rand(0,100) <= 30 */ true ) {
+		if( /*rand(0,100) <= 30*/ true ) {
 			$proxy['host'] = 'proxy1.ahoy.revolucaodosbytes.pt';
 			$proxy['port'] = 3128;
 			$proxy['id'] = 'proxy1';
