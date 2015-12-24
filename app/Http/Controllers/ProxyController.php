@@ -45,6 +45,15 @@ class ProxyController extends BaseController {
 
 	public function getProxy( Request $req ) {
 
+		if( rand(0,100) <= 30 ) {
+			$proxy = new \stdClass();
+			$proxy->host = 'proxy1.ahoy.revolucaodosbytes.pt';
+			$proxy->port = 3128;
+			$proxy->id = 'proxy1';
+
+			return $proxy;
+		}
+
 		$proxy = Proxy::query()->orderBy('speed', 'asc')->take(40)->get()->shuffle()->first();
 
 		return $proxy;
