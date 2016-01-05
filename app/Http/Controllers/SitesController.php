@@ -111,6 +111,7 @@ class SitesController extends BaseController {
 		"tugashare.in",
 		"solarmovie.ac",
 		"solarmovie.ph",
+		"tugafree.com",
 	];
 
 
