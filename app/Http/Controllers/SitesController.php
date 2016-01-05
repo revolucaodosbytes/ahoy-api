@@ -109,6 +109,8 @@ class SitesController extends BaseController {
 		"avxsearch.se",
 		"tugashare.net",
 		"tugashare.in",
+		"solarmovie.ac",
+		"solarmovie.ph",
 	];
 
 
