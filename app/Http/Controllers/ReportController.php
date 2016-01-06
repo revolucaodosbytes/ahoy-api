@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
@@ -27,9 +28,13 @@ class ReportController extends BaseController{
 
 		$site = $request->input('site');
 
+		if ( empty( $site ) )
+			return new Response( ['error' => 'no site provided'], Response::HTTP_BAD_REQUEST);
+
 		// @todo use this for rate limit
 		$user_ip = $request->ip();
 
+		// @todo instead of sending to telegram, store in a database
 		Telegram::sendMessage(env("TELEGRAM_CHANNEL"), "[$user_ip] Novo site encontrado! $site ");
 
 		return [ 'success' => 'true' ];
