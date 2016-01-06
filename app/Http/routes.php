@@ -23,6 +23,7 @@ $app->get( 'api/proxies', 'ProxyController@getProxyList' );
 $app->get( 'api/sites', 'SitesController@getSiteList' );
 $app->get( 'api/getProxy', 'ProxyController@getProxy' );
 $app->get( 'api/stats/host/{hostname}', 'StatsController@hostname');
+$app->post( 'api/report/blocked', 'ReportController@autoReportBlockedSite' );
 
 $app->post('/'.env("TELEGRAM_BOT_TOKEN").'/webhook', function () {
     Telegram::commandsHandler(true);
