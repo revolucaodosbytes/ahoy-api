@@ -124,7 +124,7 @@ class SitesController extends BaseController {
 		"nowwatchtvlive.me",
 		"putlocker.is",
 		"putlocker.is",
-		"www.index-of-stream.com",
+		"index-of-stream.com",
 		"geektv.me",
 		"nowwatchtvlive.me",
 		"livetv.sx",
