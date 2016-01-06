@@ -119,6 +119,15 @@ class SitesController extends BaseController {
 		"warezmovie.net",
 		"rojadirecta.me",
 		"torrentz.eu",
+		"piratatuga.xyz",
+		"mytvfree.me",
+		"nowwatchtvlive.me",
+		"putlocker.is",
+		"putlocker.is",
+		"www.index-of-stream.com",
+		"geektv.me",
+		"nowwatchtvlive.me",
+		"livetv.sx",
 	];
 
 
