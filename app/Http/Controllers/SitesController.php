@@ -115,6 +115,7 @@ class SitesController extends BaseController {
 		"stream2watch.co",
 		"desportogratis.com",
 		"myfreetv.me",
+		"moseon.com",
 	];
 
 
