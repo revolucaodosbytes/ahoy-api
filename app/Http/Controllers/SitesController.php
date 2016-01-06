@@ -113,6 +113,8 @@ class SitesController extends BaseController {
 		"solarmovie.ph",
 		"tugafree.com",
 		"stream2watch.co",
+		"desportogratis.com",
+		"myfreetv.me",
 	];
 
 
