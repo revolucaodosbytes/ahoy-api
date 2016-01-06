@@ -30,7 +30,7 @@ class ReportController extends BaseController{
 		// @todo use this for rate limit
 		$user_ip = $request->ip();
 
-		Telegram::sendMessage(env("TELEGRAM_CHANNEL"), "[$ip] Novo site encontrado! $site ");
+		Telegram::sendMessage(env("TELEGRAM_CHANNEL"), "[$user_ip] Novo site encontrado! $site ");
 
 		return [ 'success' => 'true' ];
 
