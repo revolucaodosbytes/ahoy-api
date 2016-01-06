@@ -118,6 +118,7 @@ class SitesController extends BaseController {
 		"moseon.com",
 		"warezmovie.net",
 		"rojadirecta.me",
+		"torrentz.eu",
 	];
 
 
