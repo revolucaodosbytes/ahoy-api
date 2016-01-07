@@ -32,6 +32,12 @@ class ReportController extends BaseController{
 		if ( empty( $site ) )
 			return new Response( ['error' => 'no site provided'], Response::HTTP_BAD_REQUEST);
 
+		// Validate if site is already on the list
+		foreach( SitesController::$sites_list as $site_in_list ) {
+			if( strpos( $site, $site_in_list ) !== false )
+				return new Response( ['error'=>'site already in the list'], Response::HTTP_ALREADY_REPORTED);
+		}
+
 		// @todo use this for rate limit
 
 
