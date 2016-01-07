@@ -44,9 +44,9 @@ class ReportController extends BaseController{
 			return true;
 		});
 
-		if( $site_reported == true ) {
-			return new Response( ['error'=>'site reported in less than 5 minutes'], 420);
-		}
+		//if( $site_reported == true ) {
+		//	return new Response( ['error'=>'site reported in less than 5 minutes'], 420);
+		//}
 
 		// Get the IP details
 		$user_ip = $request->ip();
