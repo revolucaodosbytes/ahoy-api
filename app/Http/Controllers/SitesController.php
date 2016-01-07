@@ -128,6 +128,7 @@ class SitesController extends BaseController {
 		"geektv.me",
 		"nowwatchtvlive.me",
 		"livetv.sx",
+		"rlsbb.com",
 	];
 
 
