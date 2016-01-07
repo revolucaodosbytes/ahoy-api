@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
@@ -32,13 +33,27 @@ class ReportController extends BaseController{
 			return new Response( ['error' => 'no site provided'], Response::HTTP_BAD_REQUEST);
 
 		// @todo use this for rate limit
+
+
+		// Get the IP details
 		$user_ip = $request->ip();
+		$ip_details = Cache::remember('users', 3600, function() use($user_ip) {
+			return $this->getIPDetails( $user_ip );
+		});
 
 		// @todo instead of sending to telegram, store in a database
-		Telegram::sendMessage(env("TELEGRAM_CHANNEL"), "[$user_ip] Novo site encontrado! $site ");
+		Telegram::sendMessage(env("TELEGRAM_CHANNEL"), "Foi detectado um novo site bloqueado.
+				URL: $site
+				Provider: {$ip_details->org}", true);
 
 		return [ 'success' => 'true' ];
 
+	}
+
+	private function getIPDetails($ip) {
+		$json = file_get_contents("http://ipinfo.io/{$ip}");
+		$details = json_decode($json);
+		return $details;
 	}
 
 
