@@ -73,7 +73,7 @@ class ReportController extends BaseController{
 				URL: $site
 				IP: $user_ip
 				Provider: {$ip_details->org}", true);
-		Telegram::sendMessage("Para incluir este site, utiliza o comando /adicionar $site_id");
+		Telegram::sendMessage(env("TELEGRAM_CHANNEL"), "Para incluir este site, utiliza o comando /adicionar $site_id");
 
 		return [ 'success' => 'true' ];
 
