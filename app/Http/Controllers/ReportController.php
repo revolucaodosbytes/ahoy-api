@@ -37,9 +37,15 @@ class ReportController extends BaseController{
 
 		// Get the IP details
 		$user_ip = $request->ip();
-		$ip_details = Cache::remember('users', 3600, function() use($user_ip) {
+		$ip_details = Cache::remember( 'ip-details-' . $user_ip, 3600, function() use($user_ip) {
 			return $this->getIPDetails( $user_ip );
 		});
+
+		// Fallback
+		if ( $ip_details == null ) {
+			$ip_details = new \stdClass();
+			$ip_details->org = "Unknown";
+		}
 
 		// @todo instead of sending to telegram, store in a database
 		Telegram::sendMessage(env("TELEGRAM_CHANNEL"), "Foi detectado um novo site bloqueado.
