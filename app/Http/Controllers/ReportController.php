@@ -64,13 +64,29 @@ class ReportController extends BaseController{
 			$ip_details->org = "Unknown";
 		}
 
+		// Store the site host in cache, without www
+		$site_id = $this->generateUniqueID();
+		Cache::put( 'site-'.$site_id, str_replace( 'www.', "", parse_url($site, PHP_URL_HOST) ), 3600 ); // Store it for a day
+
 		// @todo instead of sending to telegram, store in a database
 		Telegram::sendMessage(env("TELEGRAM_CHANNEL"), "Foi detectado um novo site bloqueado.
 				URL: $site
 				IP: $user_ip
 				Provider: {$ip_details->org}", true);
+		Telegram::sendMessage("Para incluir este site, utiliza o comando /adicionar $site_id");
 
 		return [ 'success' => 'true' ];
+
+	}
+
+	public function generateUniqueID() {
+		$id = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
+
+		if( Cache::has( 'site-' . $id ) ) {
+			return $this->generateUniqueID();
+		}
+
+		return $id;
 
 	}
 
