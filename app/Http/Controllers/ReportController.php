@@ -39,11 +39,6 @@ class ReportController extends BaseController{
 		}
 
 		// @todo use this for rate limit
-		// Add a cache key for when a given host is reported. This key has 5 minutes duration
-		$site_reported = Cache::remember( 'ip-reported-' . parse_url($site, PHP_URL_HOST), 5, function() {
-			return true;
-		});
-
 		// Test if site was reported in the last 5 minutes
 		if( Cache::has('ip-reported-' . parse_url($site, PHP_URL_HOST) ) ) {
 			$response = Response( ['error'=>'site reported in less than 5 minutes']);
@@ -51,6 +46,11 @@ class ReportController extends BaseController{
 
 			return $response;
 		}
+
+		// Add a cache key for when a given host is reported. This key has 5 minutes duration
+		$site_reported = Cache::remember( 'ip-reported-' . parse_url($site, PHP_URL_HOST), 5, function() {
+			return true;
+		});
 
 		// Get the IP details
 		$user_ip = $request->ip();
