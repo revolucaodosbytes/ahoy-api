@@ -50,6 +50,7 @@ class ReportController extends BaseController{
 		// @todo instead of sending to telegram, store in a database
 		Telegram::sendMessage(env("TELEGRAM_CHANNEL"), "Foi detectado um novo site bloqueado.
 				URL: $site
+				IP: $user_ip
 				Provider: {$ip_details->org}", true);
 
 		return [ 'success' => 'true' ];
