@@ -32,9 +32,7 @@ class AddNewSiteCommand extends Command
 		$site = Cache::get( 'site-' . $arguments );
 
 		// Validate if the URL isn't on the database yet
-		$site = Site::where('url','=',$site)->first();
-
-		if( $site != null ) {
+		if( Site::where('url','=',$site)->first() != null ) {
 			$this->replyWithMessage("O site $site já se encontra na base de dados.");
 			return;
 		}
