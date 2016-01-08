@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Laravel\Lumen\Routing\Controller as BaseController;
@@ -10,7 +11,7 @@ use GuzzleHttp;
 class SitesController extends BaseController {
 
 	// @todo grab from the database
-	public static $sites_list = [
+	private static $sites_list = [
 		//Piratebay links
 		"piratebay.org",
 		"thepiratebay.org",
@@ -132,6 +133,18 @@ class SitesController extends BaseController {
 		"elitetorrent.net",
 	];
 
+	public static function getAllSites() {
+
+		$db_sites = Site::all();
+
+		foreach( $db_sites as $site ) {
+			self::$sites_list[] = $site->url;
+		}
+
+		return self::$sites_list;
+
+	}
+
 
 	public function getSiteList( Request $req ) {
 
@@ -141,7 +154,7 @@ class SitesController extends BaseController {
 		}
 
 
-		return self::$sites_list;
+		return self::getAllSites();
 	}
 
 

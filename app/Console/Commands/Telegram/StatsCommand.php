@@ -55,7 +55,7 @@ class StatsCommand extends Command
 		$this->replyWithMessage($uptime_msg);
 
 		$num_proxies = count(Proxy::all());
-		$num_sites = count(SitesController::$sites_list);
+		$num_sites = count(SitesController::getAllSites());
 
 		$this->replyWithMessage("Existem " . $num_proxies . " proxies e " . $num_sites . " sites bloqueados.");
 
