@@ -41,7 +41,7 @@ class AddNewSiteCommand extends Command
 
 		$site_obj = new Site();
 		$site_obj->url = $site;
-		$site->save();
+		$site_obj->save();
 
 		$this->replyWithMessage( $site . " foi adicionado à base de dados.", true);
 
