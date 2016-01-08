@@ -31,8 +31,22 @@ class AddNewSiteCommand extends Command
 
 		$site = Cache::get( 'site-' . $arguments );
 
+		// Validate if the URL isn't on the database yet
+		$site = Site::where('url','=',$site)->first();
+
+		if( $site != null ) {
+			$this->replyWithMessage("O site $site já se encontra na base de dados.");
+			return;
+		}
+
+		$site_obj = new Site();
+		$site_obj->url = $site;
+		$site->save();
+
 		$this->replyWithMessage( $site . " foi adicionado à base de dados.", true);
 
+		// Remove the cache
+		Cache::forget('site-' . $arguments );
 
 	}
 }
