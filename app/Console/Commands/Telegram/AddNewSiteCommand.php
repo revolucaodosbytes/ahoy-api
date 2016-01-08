@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Telegram;
 
+use App\Site;
 use Illuminate\Support\Facades\Cache;
 use Telegram\Bot\Actions;
 use Telegram\Bot\Commands\Command;
@@ -25,11 +26,13 @@ class AddNewSiteCommand extends Command
 
 		if ( ! Cache::has( 'site-' . $arguments ) ) {
 			$this->replyWithMessage("Não foi encontrado nenhum site com esse argumento.");
+			return;
 		}
 
 		$site = Cache::get( 'site-' . $arguments );
 
-		$this->replyWithMessage( $site . " foi adicionado à base de dados." );
+		$this->replyWithMessage( $site . " foi adicionado à base de dados.", true);
+
 
 	}
 }

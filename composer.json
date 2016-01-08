@@ -12,7 +12,8 @@
         "vluzrmos/tinker": "^1.1",
         "irazasyed/telegram-bot-sdk": "^1.0",
         "irazasyed/larasupport": "^1.2",
-        "basicit/lumen-vendor-publish": "^1.0"
+        "basicit/lumen-vendor-publish": "^1.0",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",
