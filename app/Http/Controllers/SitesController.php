@@ -157,5 +157,22 @@ class SitesController extends BaseController {
 		return self::getAllSites();
 	}
 
+	/**
+	 * Tests if a given site is present in the site list
+	 *
+	 * @param $site the hostname to test
+	 *
+	 * @return bool true if the site is in the list
+	 */
+	public static function siteExists( $site ) {
+
+		foreach( self::getAllSites() as $site_in_list ) {
+			if ( strpos( $site, $site_in_list ) !== false ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 }
