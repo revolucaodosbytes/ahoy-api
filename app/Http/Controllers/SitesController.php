@@ -169,7 +169,7 @@ class SitesController extends BaseController {
 			} );
 
 			// If the gethostbyname fails
-			if ( $host == $site )
+			if ( $host == $site || $host == '127.0.0.1' )
 				continue;
 
 			$hosts[] = $host;
