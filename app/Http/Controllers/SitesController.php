@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use GuzzleHttp;
 
@@ -162,7 +163,16 @@ class SitesController extends BaseController {
 		$hosts = [];
 
 		foreach( self::getAllSites() as $site ) {
-			$hosts[] = gethostbyname( $site );
+
+			$host = Cache::remember('host-' . $site, 6 * 60 + rand(1,30), function() use ($site) {
+				return gethostbyname( $site );
+			} );
+
+			// If the gethostbyname fails
+			if ( $host == $site )
+				continue;
+
+			$hosts[] = $host;
 		}
 
 		return $hosts;
