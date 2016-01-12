@@ -17,11 +17,11 @@ use GuzzleHttp;
 class VPNController extends BaseController {
 
 	public function getVPNServer( Request $req ) {
-		return [ 'server' => '158.69.222.225', 'port' => '1194' ];
+		return [ 'server' => '777.69.222.225', 'port' => '1194' ];
 	}
 
 	public function getClientCAVersion( Request $req ) {
-		return [ 'version' => 1 ];
+		return [ 'version' => 2 ];
 	}
 
 	public function getClientCA( Request $req ) {
