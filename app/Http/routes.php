@@ -26,6 +26,12 @@ $app->get( 'api/getProxy', 'ProxyController@getProxy' );
 $app->get( 'api/stats/host/{hostname}', 'StatsController@hostname');
 $app->post( 'api/report/blocked', 'ReportController@autoReportBlockedSite' );
 
+$app->get( 'api/vpn/certs/version', 'VPNController@getClientCAVersion');
+$app->get( 'api/vpn/certs/ca', 'VPNController@getClientCA');
+$app->get( 'api/vpn/certs/cert', 'VPNController@getClientCert');
+$app->get( 'api/vpn/certs/key', 'VPNController@getClientKey');
+$app->get( 'api/vpn/server', 'VPNController@getVPNServer');
+
 $app->post('/'.env("TELEGRAM_BOT_TOKEN").'/webhook', function () {
     Telegram::commandsHandler(true);
 
