@@ -157,6 +157,18 @@ class SitesController extends BaseController {
 		return self::getAllSites();
 	}
 
+	public function getHostsList( Request $req ) {
+
+		$hosts = [];
+
+		foreach( self::getAllSites() as $site ) {
+			$hosts[] = gethostbyname( $site );
+		}
+
+		return $hosts;
+
+	}
+
 	/**
 	 * Tests if a given site is present in the site list
 	 *
