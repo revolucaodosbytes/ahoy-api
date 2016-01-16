@@ -34,5 +34,8 @@
         "classmap": [
             "tests/"
         ]
+    },
+    "config": {
+        "preferred-install": "dist"
     }
 }
