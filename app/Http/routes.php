@@ -37,3 +37,9 @@ $app->post('/'.env("TELEGRAM_BOT_TOKEN").'/webhook', function () {
 
     return 'ok';
 });
+
+$app->post('api/auth/login', 'Auth\AuthController@login');
+$app->post('api/auth/register', 'Auth\AuthController@register');
+$app->post('api/auth/renew', 'Auth\AuthController@renewToken');
+
+$app->get('/api/user', 'UserController@getCurrentUser');

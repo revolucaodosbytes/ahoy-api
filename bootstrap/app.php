@@ -22,8 +22,8 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->withFacades();
-
 $app->withEloquent();
+
 
 /*
 |--------------------------------------------------------------------------
@@ -65,9 +65,10 @@ $app->singleton(
 //     // Laravel\Lumen\Http\Middleware\VerifyCsrfToken::class,
 // ]);
 
-// $app->routeMiddleware([
-
-// ]);
+ $app->routeMiddleware([
+     'jwt.auth' => Tymon\JWTAuth\Middleware\GetUserFromToken::class,
+     'jwt.refresh' => Tymon\JWTAuth\Middleware\RefreshToken::class,
+ ]);
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +84,8 @@ $app->singleton(
 $app->register(App\Providers\CommandServiceProvider::class);
 $app->register(Vluzrmos\Tinker\TinkerServiceProvider::class);
 $app->register(\Telegram\Bot\Laravel\TelegramServiceProvider::class);
+$app->register(\Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class);
+$app->register(\GrahamCampbell\Throttle\ThrottleServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*
@@ -109,5 +112,11 @@ Telegram::addCommands([
 ]);
 
 Telegram::setWebhook('https://ahoy-api.revolucaodosbytes.pt/'.env('TELEGRAM_BOT_TOKEN').'/webhook');
+
+/*
+ * Register Facades
+ */
+class_alias('Tymon\JWTAuth\Facades\JWTAuth', 'JWTAuth');
+class_alias('GrahamCampbell\Throttle\Facades\Throttle', 'Throttle');
 
 return $app;
