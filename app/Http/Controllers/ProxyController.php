@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 use App\Proxy;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Input;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use GuzzleHttp;
@@ -76,6 +77,13 @@ class ProxyController extends BaseController {
 		if( is_array($proxy_addr) )
 			$proxy_addr = $proxy_addr['host'] . ":" . $proxy_addr['port'];
 
+		// check for cache
+		if ( Cache::tags(['generate_pac'])->has($proxy_addr) ) {
+			return new Response( Cache::tags(['generate_pac'])->get($proxy_addr), 200, [
+					'Content-Type' => 'application/x-ns-proxy-autoconfig',
+			]);
+		}
+
 		$pac = "function FindProxyForURL(url, host) {\n";
 
 		foreach( SitesController::getAllSites() as $site ) {
@@ -85,6 +93,8 @@ class ProxyController extends BaseController {
 		}
 		$pac .= "   return 'DIRECT';\n";
 		$pac .= "}";
+
+		Cache::tags(['generate_pac'])->put($proxy_addr, $pac, 3600); // Store it for a day
 
 		return new Response($pac, 200, [
 			'Content-Type' => 'application/x-ns-proxy-autoconfig',

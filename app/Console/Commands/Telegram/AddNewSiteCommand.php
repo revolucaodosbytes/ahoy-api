@@ -43,6 +43,9 @@ class AddNewSiteCommand extends Command
 
 		$this->replyWithMessage( $site . " foi adicionado à base de dados.", true);
 
+		// Flush the PAC cache
+		Cache::tags(['generate_pac'])->flush();
+
 		// Remove the cache
 		Cache::forget('site-' . $arguments );
 
