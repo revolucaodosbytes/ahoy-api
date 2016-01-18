@@ -79,9 +79,7 @@ class ProxyController extends BaseController {
 
 		// check for cache
 		if ( Cache::tags(['generate_pac'])->has($proxy_addr) ) {
-			return new Response( Cache::tags(['generate_pac'])->get($proxy_addr), 200, [
-					'Content-Type' => 'application/x-ns-proxy-autoconfig',
-			]);
+			return new Response( Cache::tags(['generate_pac'])->get($proxy_addr), 200);
 		}
 
 		$pac = "function FindProxyForURL(url, host) {\n";
@@ -99,9 +97,7 @@ class ProxyController extends BaseController {
 
 		Cache::tags(['generate_pac'])->put($proxy_addr, $pac, 3600); // Store it for a day
 
-		return new Response($pac, 200, [
-			'Content-Type' => 'application/x-ns-proxy-autoconfig',
-		]);
+		return new Response($pac, 200);
 
 	}
 
