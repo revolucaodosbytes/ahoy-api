@@ -85,11 +85,11 @@ class ProxyController extends BaseController {
 		$pac = "function FindProxyForURL(url, host) {\n";
 
 		foreach( SitesController::getAllSites() as $site ) {
-			$pac .= "   if ( host == '$site' || host == 'www.$site' ) { \n";
+			$pac .= "   if ( shExpMatch(host, \"*.$site\") ) { \n";
 			$pac .= "       return 'PROXY $proxy_addr';\n";
 			$pac .= "   }\n";
 		}
-		$pac .= "   if ( host == omeuip.com || host = 'www.omeuip.com' ) { \n";
+		$pac .= "   if ( shExpMatch(host, \"*.omeuip.com\") ) { \n";
 		$pac .= "       return 'PROXY $proxy_addr';\n";
 		$pac .= "   }\n";
 		$pac .= "   return 'DIRECT';\n";
