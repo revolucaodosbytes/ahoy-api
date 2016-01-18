@@ -19,8 +19,8 @@ $app->get('/', function () use ($app) {
     ];
 });
 
-$app->get( 'api/ahoy.pac', 'ProxyController@generatePAC' );
-$app->post( 'api/ahoy.pac', 'ProxyController@generatePAC' );
+$app->get( 'api/pac', 'ProxyController@generatePAC' );
+$app->post( 'api/git cpac', 'ProxyController@generatePAC' );
 $app->get( 'api/proxies', 'ProxyController@getProxyList' );
 $app->get( 'api/sites', 'SitesController@getSiteList' );
 $app->get( 'api/hosts', 'SitesController@getHostsList' );
