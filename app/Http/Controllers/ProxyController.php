@@ -10,6 +10,8 @@ namespace App\Http\Controllers;
 
 use App\Proxy;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Input;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use GuzzleHttp;
 
@@ -56,6 +58,38 @@ class ProxyController extends BaseController {
 		$proxy = Proxy::query()->orderBy('speed', 'asc')->take(40)->get()->shuffle()->first();
 
 		return $proxy;
+	}
+
+	/**
+	 * Generates and outputs a new PAC based on a given IP.
+	 *
+	 * This is going to be used on devices that don't allow real time PAC generation.
+	 *
+	 * @param Request $req
+	 *
+	 * @return string the generated PAC
+	 */
+	public function generatePAC( Request $req ) {
+
+		$proxy_addr = Input::get('proxy_addr', $this->getProxy($req) );
+
+		if( is_array($proxy_addr) )
+			$proxy_addr = $proxy_addr['host'] . ":" . $proxy_addr['port'];
+
+		$pac = "function FindProxyForURL(url, host) {\n";
+
+		foreach( SitesController::getAllSites() as $site ) {
+			$pac .= "   if ( host == '$site' || host = 'www.$site' ) { \n";
+			$pac .= "       return 'PROXY $proxy_addr';\n";
+			$pac .= "   }\n";
+		}
+		$pac .= "   return 'DIRECT';\n";
+		$pac .= "}";
+
+		return new Response($pac, 200, [
+			'Content-Type' => 'application/x-ns-proxy-autoconfig',
+		]);
+
 	}
 
 }

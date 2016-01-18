@@ -16,6 +16,10 @@ use GuzzleHttp;
 
 class VPNController extends BaseController {
 
+	public function __construct() {
+		$this->middleware('jwt.auth');
+	}
+
 	public function getVPNServer( Request $req ) {
 		return [ 'server' => 'vpn1.ahoy.revolucaodosbytes.pt', 'port' => '1194' ];
 	}
