@@ -87,7 +87,7 @@ class ProxyController extends BaseController {
 		$pac = "function FindProxyForURL(url, host) {\n";
 
 		foreach( SitesController::getAllSites() as $site ) {
-			$pac .= "   if (host == \"*.$site\" || host == www.\"*.$site\") { \n";
+			$pac .= "   if (host == \"$site\" || host == \"www.$site\") { \n";
 			$pac .= "       return 'PROXY $proxy_addr';\n";
 			$pac .= "   }\n";
 		}
