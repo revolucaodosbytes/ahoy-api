@@ -43,6 +43,16 @@ class AddNewSiteCommand extends Command
 
 		$this->replyWithMessage( $site . " foi adicionado à base de dados.", true);
 
+		// Notify the sitesbloqueados.pt about the new site
+		$ch = curl_init();
+
+		curl_setopt($ch, CURLOPT_URL, 'https://sitesbloqueados.pt/wp-json/ahoy/refresh');
+		curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
+		curl_setopt($ch, CURLOPT_TIMEOUT_MS, 1);
+
+		curl_exec($ch);
+		curl_close($ch);
+
 		// Flush the PAC cache
 		Cache::tags(['generate_pac'])->flush();
 
