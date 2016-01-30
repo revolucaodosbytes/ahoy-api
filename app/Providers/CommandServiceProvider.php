@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Console\Commands\CheckProxy;
 use App\Console\Commands\CheckProxySecurity;
 use App\Console\Commands\FetchProxy;
+use App\Console\Commands\ImportDomains;
 use Illuminate\Support\ServiceProvider;
 
 class CommandServiceProvider extends ServiceProvider
@@ -31,10 +32,15 @@ class CommandServiceProvider extends ServiceProvider
             return new CheckProxySecurity();
         });
 
+        $this->app->singleton('command.domains.import', function() {
+           return new ImportDomains();
+        });
+
         $this->commands(
             'command.proxy.fetch',
             'command.proxy.check',
-            'command.proxy.security'
+            'command.proxy.security',
+            'command.domains.import'
         );
     }
 }
