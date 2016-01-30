@@ -58,7 +58,7 @@ class ImportDomains extends Command
 			$date = date( 'Y-m-d H:i:s', $date );
 
 			// Set the domain
-			$domain = $domain[0];
+			$domain = strtolower( $domain[0] );
 
 			// Domain already exists, skip.
 			if( Site::where('url','=',$domain)->first() != null ) {
