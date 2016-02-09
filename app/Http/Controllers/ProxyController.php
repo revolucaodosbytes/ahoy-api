@@ -91,9 +91,6 @@ class ProxyController extends BaseController {
 			$pac .= "       return 'PROXY $proxy_addr';\n";
 			$pac .= "   }\n";
 		}
-		$pac .= "   if (host == \"omeuip.com\" || host == \"www.omeuip.com\" ) { \n";
-		$pac .= "       return 'PROXY $proxy_addr';\n";
-		$pac .= "   }\n";
 		$pac .= "   return 'DIRECT';\n";
 		$pac .= "}";
 
