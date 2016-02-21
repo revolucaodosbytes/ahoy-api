@@ -25,11 +25,11 @@ class ProxyController extends BaseController {
 			'port' => 3128,
 			'id'   => 1,
 		],
-		[
-			'host' => 'proxy2.ahoy.pro',
-			'port' => 3128,
-			'id'   => 2,
-		],
+	//	[
+	//		'host' => 'proxy2.ahoy.pro',
+	//		'port' => 3128,
+	//		'id'   => 2,
+	//	],
 	];
 
 	public function getProxyList( Request $req ) {
