@@ -46,7 +46,7 @@ class AddNewSiteCommand extends Command
 		// Notify the sitesbloqueados.pt about the new site
 		$url = 'https://sitesbloqueados.pt/wp-json/ahoy/refresh';
 
-		$cmd = "curl -X POST -H 'Content-Type: application/json'";
+		$cmd = "curl -X GET -H 'Content-Type: application/json'";
 		$cmd.= " " . "'" . $url . "'";
 
 		$cmd .= " > /dev/null 2>&1 &";
