@@ -28,7 +28,7 @@ class ReportController extends BaseController{
 	public function autoReportBlockedSite( Request $request ) {
 
 		$site = $request->input('site');
-		$site = parse_url($site, PHP_URL_HOST);
+		$site = str_replace( 'www.', "", parse_url($site, PHP_URL_HOST) );
 
 		if ( empty( $site ) )
 			return new Response( ['error' => 'no site provided'], Response::HTTP_BAD_REQUEST);
@@ -67,7 +67,7 @@ class ReportController extends BaseController{
 
 		// Store the site host in cache, without www
 		$site_id = $this->generateUniqueID();
-		Cache::put( 'site-'.$site_id, str_replace( 'www.', "", $site ), 3600 ); // Store it for a day
+		Cache::put( 'site-'.$site_id, $site, 3600 ); // Store it for a day
 
 		// @todo instead of sending to telegram, store in a database
 		Telegram::sendMessage(env("TELEGRAM_CHANNEL"), "Foi detectado um novo site bloqueado.
