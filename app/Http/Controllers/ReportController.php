@@ -28,13 +28,14 @@ class ReportController extends BaseController{
 	public function autoReportBlockedSite( Request $request ) {
 
 		$site = $request->input('site');
+		$site = parse_url($site, PHP_URL_HOST);
 
 		if ( empty( $site ) )
 			return new Response( ['error' => 'no site provided'], Response::HTTP_BAD_REQUEST);
 
 		// Validate if site is already on the list
 		foreach( SitesController::getAllSites() as $site_in_list ) {
-			if( strpos( $site, $site_in_list ) !== false )
+			if( $site == $site_in_list )
 				return new Response( ['error'=>'site already in the list'], Response::HTTP_ALREADY_REPORTED);
 		}
 
