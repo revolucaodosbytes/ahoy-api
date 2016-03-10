@@ -41,7 +41,7 @@ class ReportController extends BaseController{
 
 		// @todo use this for rate limit
 		// Test if site was reported in the last 5 minutes
-		if( Cache::has('ip-reported-' . parse_url($site, PHP_URL_HOST) ) ) {
+		if( Cache::has('ip-reported-' . $site ) ) {
 			$response = Response( ['error'=>'site reported in less than 5 minutes']);
 			$response->setStatusCode('420', "Enhance Your Calm");
 
@@ -49,7 +49,7 @@ class ReportController extends BaseController{
 		}
 
 		// Add a cache key for when a given host is reported. This key has 5 minutes duration
-		$site_reported = Cache::remember( 'ip-reported-' . parse_url($site, PHP_URL_HOST), 5, function() {
+		$site_reported = Cache::remember( 'ip-reported-' . $site, 5, function() {
 			return true;
 		});
 
@@ -67,7 +67,7 @@ class ReportController extends BaseController{
 
 		// Store the site host in cache, without www
 		$site_id = $this->generateUniqueID();
-		Cache::put( 'site-'.$site_id, str_replace( 'www.', "", parse_url($site, PHP_URL_HOST) ), 3600 ); // Store it for a day
+		Cache::put( 'site-'.$site_id, str_replace( 'www.', "", $site ), 3600 ); // Store it for a day
 
 		// @todo instead of sending to telegram, store in a database
 		Telegram::sendMessage(env("TELEGRAM_CHANNEL"), "Foi detectado um novo site bloqueado.
