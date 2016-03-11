@@ -79,7 +79,7 @@ class StatsCommand extends Command
 		preg_match('/class="e-f-ih" title="(\d*\,\d+)/', $file_string, $users);
 		preg_match('/class="daily-users" title="(\d*\,\d+)/', $file_string_f, $usersf);
 		$users = $users[1];
-		$usersf = $usersf[2];
+		$usersf = $usersf[1];
 
 		$this->replyWithMessage("Existem $users[1] utilizadores no Chrome e $usersf com um rating médio no Chrome de $rating");
 		//$this->replyWithMessage("Existem $users utilizadores com um rating médio de $rating");
