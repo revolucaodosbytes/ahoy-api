@@ -66,8 +66,10 @@ class StatsCommand extends Command
 
 		//URL of your extension
 		$url = "https://chrome.google.com/webstore/detail/ahoy/ljighgeflmhnpljodhpcifcojkpancpm";
+		$urlf = "https://addons.mozilla.org/en-US/firefox/addon/ahoy/?src=siterdb";
 
 		$file_string = file_get_contents($url);
+		$file_string_f = file_get_contents($urlf);
 
 		//Get the rating
 		preg_match('/ratingValue" content="(\d*\d+\.\d+)/', $file_string, $ratings);
@@ -75,9 +77,12 @@ class StatsCommand extends Command
 
 		//Get the nb of users
 		preg_match('/class="e-f-ih" title="(\d*\,\d+)/', $file_string, $users);
+		preg_match('/class="daily-users" title="(\d*\,\d+)/', $file_string_f, $usersf);
 		$users = $users[1];
+		$usersf = $usersf[2];
 
-		$this->replyWithMessage("Existem $users utilizadores com um rating médio de $rating");
+		$this->replyWithMessage("Existem $users[1] utilizadores no Chrome e $usersf com um rating médio no Chrome de $rating");
+		//$this->replyWithMessage("Existem $users utilizadores com um rating médio de $rating");
 
 		// Trigger another command dynamically from within this command
 		// When you want to chain multiple commands within one or process the request further.
