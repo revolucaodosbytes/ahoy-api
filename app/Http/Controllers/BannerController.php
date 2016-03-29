@@ -14,12 +14,12 @@ class BannerController extends BaseController {
 
 	public static function getMessage() {
         
-        $message = [];
-        
-        $retrivedMessage = Banner::where('active', '=', 1)->get();
-        
-        $message["text"] = $retrivedMessage[0]->text;
-        $message["url"] = $retrivedMessage[0]->url;
+	        $message = [];
+	        
+	        $retrivedMessage = Banner::where('active', '=', 1)->get();
+	        
+	        $message["text"] = $retrivedMessage[0]->text;
+	        $message["url"] = $retrivedMessage[0]->url;
         
 		return $message;
 	}
