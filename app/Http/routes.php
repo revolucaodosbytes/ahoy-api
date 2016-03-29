@@ -19,30 +19,34 @@ $app->get('/', function () use ($app) {
     ];
 });
 
-$app->get( 'api/pac', 'ProxyController@generatePAC' );
-$app->post( 'api/pac', 'ProxyController@generatePAC' );
-
-$app->get( 'api/proxies', 'ProxyController@getProxyList' );
-$app->get( 'api/sites', 'SitesController@getSiteList' );
-$app->get( 'api/hosts', 'SitesController@getHostsList' );
-$app->get( 'api/getProxy', 'ProxyController@getProxy' );
-$app->get( 'api/stats/host/{hostname}', 'StatsController@hostname');
-$app->post( 'api/report/blocked', 'ReportController@autoReportBlockedSite' );
-
-$app->get( 'api/vpn/certs/version', 'VPNController@getClientCAVersion');
-$app->get( 'api/vpn/certs/ca', 'VPNController@getClientCA');
-$app->get( 'api/vpn/certs/cert', 'VPNController@getClientCert');
-$app->get( 'api/vpn/certs/key', 'VPNController@getClientKey');
-$app->get( 'api/vpn/server', 'VPNController@getVPNServer');
-
 $app->post('/'.env("TELEGRAM_BOT_TOKEN").'/webhook', function () {
     Telegram::commandsHandler(true);
 
     return 'ok';
 });
 
-$app->post('api/auth/login', 'Auth\AuthController@login');
-$app->post('api/auth/register', 'Auth\AuthController@register');
-$app->post('api/auth/renew', 'Auth\AuthController@renewToken');
+$app->group(['prefix' => 'api','namespace' => 'App\Http\Controllers'], function () use ($app) {
+    $app->post('auth/login', 'Auth\AuthController@login');
+    $app->post('auth/register', 'Auth\AuthController@register');
+    $app->post('auth/renew', 'Auth\AuthController@renewToken');
+    
+    $app->get( 'pac', 'ProxyController@generatePAC' );
+    $app->post( 'pac', 'ProxyController@generatePAC' );
 
-$app->get('/api/user', 'UserController@getCurrentUser');
+    $app->get( 'proxies', 'ProxyController@getProxyList' );
+    $app->get( 'sites', 'SitesController@getSiteList' );
+    $app->get( 'hosts', 'SitesController@getHostsList' );
+    $app->get( 'getProxy', 'ProxyController@getProxy' );
+    $app->get( 'stats/host/{hostname}', 'StatsController@hostname');
+    $app->post( 'report/blocked', 'ReportController@autoReportBlockedSite' );
+
+    $app->get( 'vpn/certs/version', 'VPNController@getClientCAVersion');
+    $app->get( 'vpn/certs/ca', 'VPNController@getClientCA');
+    $app->get( 'vpn/certs/cert', 'VPNController@getClientCert');
+    $app->get( 'vpn/certs/key', 'VPNController@getClientKey');
+    $app->get( 'vpn/server', 'VPNController@getVPNServer');
+
+    $app->get('/user', 'UserController@getCurrentUser');
+
+    $app->get('banner', 'BannerController@getMessage');
+});

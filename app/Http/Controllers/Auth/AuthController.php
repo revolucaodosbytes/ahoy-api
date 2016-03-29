@@ -84,7 +84,6 @@ class AuthController extends Controller {
 
 		$gcm_token = $request->get('gcm_token');
 
-		// Rate limit to 1 requests per minute
 		$throttler = Throttle::get($request, 5, 1);
 		if( ! $throttler->check() ) {
 			$response = Response( ['error'=>'too many wrong requests']);
