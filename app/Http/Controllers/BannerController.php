@@ -13,12 +13,12 @@ class BannerController extends BaseController {
 
 
 	public static function getMessage() {
-        $message = [];
-        
-        $retrivedMessage = Banner::orderBy('id', 'DESC')->first();
-        
-        $message["text"] = $retrivedMessage->text;
-        $message["url"] = $retrivedMessage->url;
+	        $message = [];
+	        
+	        $retrivedMessage = Banner::orderBy('id', 'DESC')->first();
+	        
+	        $message["text"] = $retrivedMessage->text;
+	        $message["url"] = $retrivedMessage->url;
         
 		return $message;
 	}
