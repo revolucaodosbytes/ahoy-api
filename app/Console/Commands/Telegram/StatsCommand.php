@@ -77,12 +77,11 @@ class StatsCommand extends Command
 
 		//Get the nb of users
 		preg_match('/class="e-f-ih" title="(\d*\,\d+)/', $file_string, $users);
-		preg_match('/class="daily-users" title="(\d*\,\d+)/', $file_string_f, $usersf);
+		preg_match('/class="daily-users" title="(?:\d*)?\d+/', $file_string_f, $usersf);
 		$users = $users[1];
 		$usersf = $usersf[1];
 
-		$this->replyWithMessage("Existem $users[1] utilizadores no Chrome e $usersf com um rating médio no Chrome de $rating");
-		//$this->replyWithMessage("Existem $users utilizadores com um rating médio de $rating");
+		$this->replyWithMessage("Existem $users utilizadores no Chrome e $usersf no Firefox, com um rating médio no Chrome de $rating");
 
 		// Trigger another command dynamically from within this command
 		// When you want to chain multiple commands within one or process the request further.
