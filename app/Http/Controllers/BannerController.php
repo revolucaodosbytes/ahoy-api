@@ -16,10 +16,10 @@ class BannerController extends BaseController {
         
         $message = [];
         
-        $retrivedMessage = Banner::where('active', '=', 1)->get();
+        $retrivedMessage = Banner::orderBy('id', 'DESC')->first();
         
-        $message["text"] = $retrivedMessage[0]->text;
-        $message["url"] = $retrivedMessage[0]->url;
+        $message["text"] = $retrivedMessage->text;
+        $message["url"] = $retrivedMessage->url;
         
 		return $message;
 	}

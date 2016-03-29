@@ -17,7 +17,6 @@ class Banner extends Migration
             $table->increments('id');
             $table->string('text');
             $table->string('url')->default("#");
-            $table->tinyInteger('active')->default(1);
             $table->timestamps();
         });
     }
