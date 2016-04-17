@@ -32,7 +32,7 @@ class IgnoreSiteCommand extends Command
 		$site = Cache::get( 'site-' . $arguments );
 
 		// Validate if the URL isn't on the database yet
-		if( Site::where('url','=',$site)->first() != null ) {
+		if( Cache::has('site-ignore-' . $site ) ) {
 			$this->replyWithMessage("O site $site já está na lista de ignorados.");
 			return;
 		}
