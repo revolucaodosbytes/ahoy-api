@@ -39,6 +39,10 @@ class ReportController extends BaseController{
 				return new Response( ['error'=>'site already in the list'], Response::HTTP_ALREADY_REPORTED);
 		}
 
+		if( Cache::has('site-ignored-' . $site) ) {
+			return new Response( ['error' => 'site in the ignore list' ], Response::HTTP_UNPROCESSABLE_ENTITY );
+		}
+
 		// @todo use this for rate limit
 		// Test if site was reported in the last 5 minutes
 		if( Cache::has('ip-reported-' . $site ) ) {
@@ -74,7 +78,8 @@ class ReportController extends BaseController{
 				URL: $site
 				IP: $user_ip
 				Provider: {$ip_details->org}", true);
-		Telegram::sendMessage(env("TELEGRAM_CHANNEL"), "Para incluir este site, utiliza o comando /adicionar $site_id");
+		Telegram::sendMessage(env("TELEGRAM_CHANNEL"), "Para incluir este site, utiliza o comando /adicionar $site_id
+Para ignorar este site, utiliza o comando /ignorar $site_id");
 
 		return [ 'success' => 'true' ];
 

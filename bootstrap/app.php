@@ -109,6 +109,7 @@ Telegram::addCommands([
     \App\Console\Commands\Telegram\StatsCommand::class,
     \App\Console\Commands\Telegram\FunCommand::class,
     \App\Console\Commands\Telegram\AddNewSiteCommand::class,
+    \App\Console\Commands\Telegram\IgnoreSiteCommand::class,
 ]);
 
 Telegram::setWebhook('https://ahoy-api.revolucaodosbytes.pt/'.env('TELEGRAM_BOT_TOKEN').'/webhook');
