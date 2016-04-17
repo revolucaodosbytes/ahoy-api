@@ -39,7 +39,7 @@ class ReportController extends BaseController{
 				return new Response( ['error'=>'site already in the list'], Response::HTTP_ALREADY_REPORTED);
 		}
 
-		if( Cache::has('site-ignored-' . $site) ) {
+		if( Cache::has('site-ignore-' . $site) ) {
 			return new Response( ['error' => 'site in the ignore list' ], Response::HTTP_UNPROCESSABLE_ENTITY );
 		}
 
