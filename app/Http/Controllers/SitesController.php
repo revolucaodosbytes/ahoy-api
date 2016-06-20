@@ -14,6 +14,10 @@ class SitesController extends BaseController {
 
 	public static function getAllSites() {
 
+		if( Cache::has('site-list') ) {
+			return Cache::get('site-list');
+		}
+
 		$site_list = Site::all(['url']);
 		$site_array = [];
 
@@ -21,6 +25,8 @@ class SitesController extends BaseController {
 		foreach( $site_list as $site ) {
 			$site_array[] = $site->url;
 		}
+
+		Cache::put('site-list', $site_array, 15);
 
 		return $site_array;
 

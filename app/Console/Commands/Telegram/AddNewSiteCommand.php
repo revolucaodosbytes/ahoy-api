@@ -59,5 +59,7 @@ class AddNewSiteCommand extends Command
 		// Remove the cache
 		Cache::forget('site-' . $arguments );
 
+		Cache::forget('site-list');
+
 	}
 }
