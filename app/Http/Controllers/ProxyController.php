@@ -20,11 +20,11 @@ class ProxyController extends BaseController {
 
 	// @todo grab from the database
 	private $proxy_list = [
-		[
-			'host' => 'proxy1.ahoy.pro',
-			'port' => 3128,
-			'id'   => 1,
-		],
+		//[
+		//	'host' => 'proxy1.ahoy.pro',
+		//	'port' => 3128,
+		//	'id'   => 1,
+		//],
 		[
 			'host' => 'proxy2.ahoy.pro',
 			'port' => 3128,
