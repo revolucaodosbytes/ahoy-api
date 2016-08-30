@@ -12,6 +12,8 @@ class StatsController extends BaseController {
 
 
 	public function hostname( Request $req, $hostname ) {
+		// temporarily disable Stats endpoint.
+		return 'disabled';
 
 		// Validate hostname
 		if( ! $this->is_valid_domain_name( $hostname ) )
