@@ -112,8 +112,6 @@ Telegram::addCommands([
     \App\Console\Commands\Telegram\IgnoreSiteCommand::class,
 ]);
 
-Telegram::setWebhook('https://ahoy-api.revolucaodosbytes.pt/'.env('TELEGRAM_BOT_TOKEN').'/webhook');
-
 /*
  * Register Facades
  */

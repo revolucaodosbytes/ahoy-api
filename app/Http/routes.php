@@ -14,7 +14,13 @@ use \Telegram\Bot\Laravel\Facades\Telegram;
 
 
 $app->get('/', function () use ($app) {
-    return [
+	try {
+		Telegram::setWebhook( 'https://ahoy-api.revolucaodosbytes.pt/' . env( 'TELEGRAM_BOT_TOKEN' ) . '/webhook' );
+
+	} catch( \Telegram\Bot\Exceptions\TelegramResponseException $exception ) {
+		error_log( "Telegram exception: " . $exception->getMessage() );
+	}
+	return [
         'version' => 1
     ];
 });
