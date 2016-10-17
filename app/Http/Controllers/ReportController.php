@@ -29,6 +29,7 @@ class ReportController extends BaseController{
 
 		$site = $request->input('site');
 		$site = str_replace( 'www.', "", parse_url($site, PHP_URL_HOST) );
+		$site = rtrim( $site, '.' ); // Sometimes there are URL's with a extra dot in the end. Strip all the dots.
 
 		if ( empty( $site ) )
 			return new Response( ['error' => 'no site provided'], Response::HTTP_BAD_REQUEST);
