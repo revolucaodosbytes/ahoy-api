@@ -38,7 +38,7 @@ $app->group(['prefix' => 'api','namespace' => 'App\Http\Controllers'], function 
     
     $app->get( 'pac', 'ProxyController@generatePAC' );
     $app->post( 'pac', 'ProxyController@generatePAC' );
-§
+
     $app->get( 'proxies', 'ProxyController@getProxyList' );
     $app->get( 'sites', 'SitesController@getSiteList' );
     $app->get( 'hosts', 'SitesController@getHostsList' );
