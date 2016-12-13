@@ -69,7 +69,7 @@ class ProxyController extends BaseController {
 
 		foreach( SitesController::getAllSites() as $site ) {
 			$pac .= "   if (host == \"$site\" || host == \"www.$site\") { \n";
-			$pac .= "       return 'PROXY $proxy_addr';\n";
+			$pac .= "       return 'PROXY " . e($proxy_addr) . "';\n";
 			$pac .= "   }\n";
 		}
 		$pac .= "   return 'DIRECT';\n";
